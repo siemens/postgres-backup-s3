@@ -1,5 +1,5 @@
-ARG ALPINE_VERSION
-FROM alpine:${ALPINE_VERSION}
+ARG POSTGRES_VERSION
+FROM postgres:${POSTGRES_VERSION}-alpine
 
 ADD src/install.sh install.sh
 RUN sh install.sh && rm install.sh
