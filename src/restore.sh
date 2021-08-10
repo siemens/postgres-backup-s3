@@ -23,6 +23,10 @@ if [ -z "$POSTGRES_DATABASE" ]; then
   exit 1
 fi
 
+if [ -z "$S3_PREFIX" ]; then
+  S3_PREFIX=backup
+fi
+
 if [ -z "$POSTGRES_HOST" ]; then
   # TODO: what is this?
   if [ -n "$POSTGRES_PORT_5432_TCP_ADDR" ]; then
