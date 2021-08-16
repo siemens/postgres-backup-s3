@@ -24,11 +24,22 @@ pg_backup_s3:
     POSTGRES_DATABASE: dbname
     POSTGRES_USER: user
     POSTGRES_PASSWORD: password
+    ENABLE_METRICS: true
 ```
 - Images are tagged by the major PostgreSQL version they support: `9`, `10`, `11`, `12`, or `13`.
 - The `SCHEDULE` variable determines backup frequency. See go-cron schedules documentation [here](http://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules).
 - If `PASSPHRASE` is provided, the backup will be encrypted using GPG.
 - Run `docker exec <container name> sh backup.sh` to trigger a backup ad-hoc
+
+### Backup Metrics
+
+Optionally you can also export backup metrics, e.g. size, start time in Prometheus
+file format. To read the metrics, you'll have to mount the metrics folder to your host at `/metrics`.
+The file is called `metrics.txt`.
+
+```sh
+$ docker run -v $(pwd)/metrics:/metrics -e ENABLE_METRICS=true -e ... siemens/postgres-backup-s3
+```
 
 ## Restore
 > **WARNING:** DATA LOSS! All database objects will be dropped and re-created.

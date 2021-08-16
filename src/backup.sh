@@ -60,6 +60,7 @@ export AWS_DEFAULT_REGION=$S3_REGION
 export PGPASSWORD=$POSTGRES_PASSWORD
 
 echo "Creating backup of $POSTGRES_DATABASE database..."
+START=$(date +%s)
 pg_dump --format=custom \
         -h $POSTGRES_HOST \
         -p $POSTGRES_PORT \
@@ -67,6 +68,7 @@ pg_dump --format=custom \
         -d $POSTGRES_DATABASE \
         $PGDUMP_EXTRA_OPTS \
         > db.dump
+SIZE=$(ls -nlt db.dump | head -n1 | awk '{print $5}')
 
 timestamp=$(date +"%Y-%m-%dT%H:%M:%S")
 s3_uri_base="s3://${S3_BUCKET}/${S3_PREFIX}/${POSTGRES_DATABASE}_${timestamp}.dump"
@@ -85,5 +87,12 @@ fi
 echo "Uploading backup to $S3_BUCKET..."
 aws $aws_args s3 cp "$local_file" "$s3_uri"
 rm "$local_file"
+
+END=$(date +%s)
+
+if [ "$ENABLE_METRICS" = true ]; then
+  echo "Writing metrics..."
+  sh write_metrics.sh /metrics/metrics "${START}" "${END}" "${SIZE}"
+fi
 
 echo "Backup complete."

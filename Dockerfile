@@ -2,7 +2,7 @@ ARG POSTGRES_VERSION
 FROM postgres:${POSTGRES_VERSION}-alpine
 
 ADD src/install.sh install.sh
-RUN sh install.sh && rm install.sh
+RUN sh install.sh && rm install.sh && mkdir -p /metrics
 
 ENV POSTGRES_DATABASE ''
 ENV POSTGRES_HOST ''
@@ -23,5 +23,6 @@ ENV PASSPHRASE ''
 ADD src/run.sh run.sh
 ADD src/backup.sh backup.sh
 ADD src/restore.sh restore.sh
+ADD src/write_metrics.sh write_metrics.sh
 
 CMD ["sh", "run.sh"]
