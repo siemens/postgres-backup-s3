@@ -9,7 +9,7 @@ SIZE=$4
 cat > $(pwd)/postgres_backup.prom.$$ <<EOT
 # HELP postgres backup start time, in unixtime.
 # TYPE postgres_backup_start gauge
-postgres_backup_backup_start ${START}
+postgres_backup_start ${START}
 # HELP postgres_backup_end backup end time, in unixtime.
 # TYPE postgres_backup_end gauge
 postgres_backup_end ${END}
