@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [9, 10, 11, 12, 13]
+        version: [9, 10, 11, 12, 13, 14, 15]
     steps:
        - name: Login to DockerHub
          uses: docker/login-action@v1
