@@ -10,19 +10,19 @@ on:
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         version: [13, 14, 15, 16, 17]
     steps:
        - name: Login to DockerHub
-         uses: docker/login-action@v1
+         uses: docker/login-action@v3
          with:
            username: ${{ secrets.DOCKERHUB_USERNAME }}
            password: ${{ secrets.DOCKERHUB_TOKEN }}
        - name: Build and push
          id: docker_build
-         uses: docker/build-push-action@v2
+         uses: docker/build-push-action@v6
          with:
            push: true
            build-args: |
