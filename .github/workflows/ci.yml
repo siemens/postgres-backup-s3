@@ -15,9 +15,6 @@ jobs:
       matrix:
         version: [13, 14, 15, 16, 17]
     steps:
-       - name: Docker meta
-         id: meta
-         uses: docker/metadata-action@v5
        - name: Login to DockerHub
          uses: docker/login-action@v3
          with:
@@ -31,4 +28,3 @@ jobs:
            build-args: |
              POSTGRES_VERSION=${{ matrix.version }}
            tags: siemens/postgres-backup-s3:${{ matrix.version }}
-           labels: ${{ steps.meta.outputs.labels }}
