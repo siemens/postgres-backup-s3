@@ -1,5 +1,6 @@
 ARG POSTGRES_VERSION
 FROM postgres:${POSTGRES_VERSION}-alpine
+ARG TARGETARCH
 
 ADD src/install.sh install.sh
 RUN sh install.sh && rm install.sh && mkdir -p /metrics
@@ -19,8 +20,10 @@ ENV S3_ENDPOINT ''
 ENV S3_S3V4 'no'
 ENV SCHEDULE ''
 ENV PASSPHRASE ''
+ENV BACKUP_KEEP_DAYS ''
 
 ADD src/run.sh run.sh
+ADD src/env.sh env.sh
 ADD src/backup.sh backup.sh
 ADD src/restore.sh restore.sh
 ADD src/write_metrics.sh write_metrics.sh
