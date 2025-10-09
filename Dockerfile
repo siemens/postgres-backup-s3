@@ -22,6 +22,7 @@ ENV SCHEDULE ''
 ENV PASSPHRASE ''
 ENV BACKUP_KEEP_DAYS ''
 ENV S3_PREFIX ''
+ENV ENABLE_METRICS ''
 
 ADD src/run.sh run.sh
 ADD src/env.sh env.sh
