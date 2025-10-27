@@ -28,6 +28,7 @@ jobs:
          uses: docker/build-push-action@v6
          with:
            push: true
+           platforms: linux/amd64,linux/arm64
            build-args: |
              POSTGRES_VERSION=${{ matrix.version }}
            tags: siemens/postgres-backup-s3:${{ matrix.version }}
