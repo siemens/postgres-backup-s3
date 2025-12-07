@@ -6,13 +6,13 @@ This project provides Docker images to periodically back up a PostgreSQL databas
 ```yaml
 services:
   postgres:
-    image: postgres:16
+    image: postgres:18
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
 
   backup:
-    image: eeshugerman/postgres-backup-s3:16
+    image: eeshugerman/postgres-backup-s3:18
     environment:
       SCHEDULE: '@weekly'     # optional
       BACKUP_KEEP_DAYS: 7     # optional
@@ -29,7 +29,7 @@ services:
       ENABLE_METRICS: true
 ```
 
-- Images are tagged by the major PostgreSQL version supported: `12`, `13`, `14`, `15` or `16`.
+- Images are tagged by the major PostgreSQL version supported: `14`, `15`, `16`, `17` or `18`.
 - The `SCHEDULE` variable determines backup frequency. See go-cron schedules documentation [here](http://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules). Omit to run the backup immediately and then exit.
 - If `PASSPHRASE` is provided, the backup will be encrypted using GPG.
 - Run `docker exec <container name> sh backup.sh` to trigger a backup ad-hoc.
