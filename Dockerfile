@@ -3,7 +3,7 @@ FROM postgres:${POSTGRES_VERSION}-alpine
 ARG TARGETARCH
 
 ADD src/install.sh install.sh
-RUN sh install.sh && rm install.sh && mkdir -p /metrics
+RUN sh install.sh && rm install.sh && mkdir -p /metrics /dumps
 
 ENV POSTGRES_DATABASE ''
 ENV POSTGRES_HOST ''
@@ -22,6 +22,8 @@ ENV SCHEDULE ''
 ENV PASSPHRASE ''
 ENV BACKUP_KEEP_DAYS ''
 ENV S3_PREFIX ''
+ENV BACKUP_DIR '/dumps'
+ENV KEEP_LOCAL_BACKUP ''
 ENV ENABLE_METRICS ''
 
 ADD src/run.sh run.sh
