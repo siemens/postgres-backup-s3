@@ -39,5 +39,6 @@ conn_opts="-h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -d $POSTGRES_DA
 
 echo "Restoring from backup..."
 pg_restore $conn_opts --clean --if-exists "$BACKUP_DIR/db.dump"
+rm "$BACKUP_DIR/db.dump"
 
 echo "Restore complete."
