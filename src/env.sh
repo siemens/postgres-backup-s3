@@ -48,3 +48,8 @@ if [ -n "$S3_SECRET_ACCESS_KEY" ]; then
 fi
 export AWS_DEFAULT_REGION=$S3_REGION
 export PGPASSWORD=$POSTGRES_PASSWORD
+
+if [ -z "$BACKUP_DIR" ]; then
+  BACKUP_DIR=/dumps
+fi
+mkdir -p "$BACKUP_DIR"
