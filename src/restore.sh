@@ -32,6 +32,7 @@ aws $aws_args s3 cp "${s3_uri_base}/${key_suffix}" "$BACKUP_DIR/db${file_type}"
 if [ -n "$PASSPHRASE" ]; then
   echo "Decrypting backup..."
   gpg --decrypt --batch --passphrase "$PASSPHRASE" "$BACKUP_DIR/db.dump.gpg" > "$BACKUP_DIR/db.dump"
+  rm "$BACKUP_DIR/db.dump.gpg"
 fi
 
 conn_opts="-h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -d $POSTGRES_DATABASE"
